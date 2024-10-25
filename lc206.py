@@ -8,7 +8,7 @@ class ListNode:
         self.val = val
         self.next = next
 
-class Solution:
+class Solution1:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         stack=[]
         while head:
@@ -23,6 +23,31 @@ class Solution:
             p=p.next
         p.next=None # MLE
         return head.next
+    
+class Solution2:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if head and head.next:
+            newhead=self.reverseList(head.next)
+            head.next.next=head
+            head.next=None
+            return newhead
+        else:
+            return head
+        
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head:
+            return head
+        pre=None
+        cur=head
+        next=head.next
+        while(next):
+            cur.next=pre
+            pre=cur
+            cur=next
+            next=next.next
+        cur.next=pre
+        return cur
     
 if __name__=="__main__":
     head=ListNode()
